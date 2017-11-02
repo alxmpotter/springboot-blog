@@ -10,27 +10,26 @@ public class MathController {
 
     @ResponseBody
     @GetMapping("/add/{numberOne}/and/{numberTwo}")
-    public Long add(@PathVariable Long numberOne, @PathVariable Long numberTwo){
+    public Double add(@PathVariable Double numberOne, @PathVariable Double numberTwo){
         return numberOne + numberTwo;
     }
 
     @ResponseBody
-    @GetMapping("/subtract/{numOne}/from/{numTwo}")
-    public Long subtract(@PathVariable Long numOne, @PathVariable Long numTwo){
+    @GetMapping("/subtract/{numTwo}/from/{numOne}")
+    public Double subtract(@PathVariable Double numOne, @PathVariable Double numTwo){
         return numOne - numTwo;
     }
 
     @ResponseBody
     @GetMapping("/multiply/{numOne}/and/{numTwo}")
-    public Long multiply(@PathVariable Long numOne, @PathVariable Long numTwo){
-        return numOne *numTwo;
+    public Double multiply(@PathVariable Double numOne, @PathVariable Double numTwo){
+        return numOne * numTwo;
     }
 
     @ResponseBody
     @GetMapping("/divide/{numOne}/by/{numTwo}")
-    public Long divide(@PathVariable Long numOne, @PathVariable Long numTwo){
-        return numOne /numTwo;
+    public Double divide(@PathVariable Long numOne, @PathVariable Double numTwo) {
+        return numOne / numTwo;
     }
-
 
 }
