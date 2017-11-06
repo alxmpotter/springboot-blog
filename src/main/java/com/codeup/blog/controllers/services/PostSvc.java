@@ -31,7 +31,7 @@ public class PostSvc {
 
     public void createDummyPosts() {
 
-        this.savePost(new Post("Post One", "blah blah blah blah blah"));
+        savePost(new Post("Post One", "blah blah blah blah blah"));
 
         this.savePost(new Post("Post Two", "blah blah blah blah blah"));
 
