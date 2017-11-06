@@ -1,29 +1,28 @@
 package com.codeup.blog.controllers;
 
+import com.codeup.blog.controllers.services.PostSvc;
+import com.codeup.blog.models.Post;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.ResponseBody;
-
-import java.util.ArrayList;
+import java.util.List;
 
 @Controller
 public class PostsController {
+    private final PostSvc postSvc;
 
+    @Autowired
+    public PostsController(PostSvc postSvc){
+        this.postSvc = postSvc;
+    }
 
     @GetMapping("/posts")
     public String showAll(Model viewModel){
 
-        ArrayList<Post> posts = new ArrayList<>();
-
-        posts.add(new Post("Example 1", "Lorem ipsum dolor sit amet, consectetur adipisicing elit. Adipisci atque commodi eligendi necessitatibus voluptates. At distinctio dolores minus molestiae mollitia nemo sapiente ut veniam voluptates! Corporis distinctio error quaerat vel!"));
-
-        posts.add(new Post("Example 2", "QWE Lorem ipsum dolor sit amet, consectetur adipisicing elit. Adipisci atque commodi eligendi necessitatibus voluptates. At distinctio dolores minus molestiae mollitia nemo sapiente ut veniam voluptates! Corporis distinctio error quaerat vel!"));
-
-
-
+        List<Post> posts = postSvc.findAll();
         viewModel.addAttribute("posts", posts);
 
         return "posts/index";
@@ -33,9 +32,10 @@ public class PostsController {
 
     @GetMapping("/posts/{id}")
     public String singlePost(@PathVariable int id, Model viewModel){
-        Post post = new Post("Example 1", "Lorem ipsum dolor sit amet, consectetur adipisicing elit. Adipisci atque commodi eligendi necessitatibus voluptates. At distinctio dolores minus molestiae mollitia nemo sapiente ut veniam voluptates! Corporis distinctio error quaerat vel!");
 
+        Post post = postSvc.findOne(id);
         viewModel.addAttribute("post", post);
+
         return "posts/show";
     }
 
