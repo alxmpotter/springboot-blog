@@ -1,0 +1,11 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org" lang="en">
+<head th:fragment="main-header(title)">
+    <meta charset="UTF-8"/>
+    <!--make title dynamic, in the file that's using the fragment out in head tag put the parameter in () in the replace statement-->
+    <title th:text="${title}"></title>
+</head>
+<body>
+
+</body>
+</html>

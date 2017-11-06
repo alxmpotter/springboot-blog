@@ -23,7 +23,7 @@ public class PostsController {
 
     @ResponseBody
     @GetMapping("/posts/create")
-    public String postForm(){
+    public String createPostForm(){
         return "view the form for creating a post";
     }
 
