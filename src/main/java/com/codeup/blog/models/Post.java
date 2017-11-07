@@ -1,8 +1,20 @@
 package com.codeup.blog.models;
 
+import com.sun.javafx.beans.IDProperty;
+
+import javax.persistence.*;
+
+@Entity
+@Table(name = "Post")
 public class Post {
+    @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
+
+    @Column(nullable = false, length = 100)
     private String title;
+
+    @Column(nullable = false)
     private String body;
 
 
