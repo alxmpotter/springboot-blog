@@ -5,9 +5,8 @@ import com.codeup.blog.models.Post;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.*;
+
 import java.util.List;
 
 @Controller
@@ -29,7 +28,6 @@ public class PostsController {
     }
 
 
-
     @GetMapping("/posts/{id}")
     public String singlePost(@PathVariable int id, Model viewModel){
 
@@ -41,13 +39,21 @@ public class PostsController {
 
 
     @GetMapping("/posts/create")
-    public String createPostForm(){
-        return "view the form for creating a post";
+    public String createPostForm(Model viewModel){
+        viewModel.addAttribute("post", new Post());
+        return "posts/create";
     }
 
 
     @PostMapping("/posts/create")
-    public String createPost(){
-        return "create a new post";
+    public String createPost(@ModelAttribute Post post) {
+        postSvc.savePost(post);
+        return "redirect:/posts";
+    }
+
+    @GetMapping("/posts/{id}/edit")
+    public String editPost(@PathVariable int id, Model vModel){
+        vModel.addAttribute("post", postSvc.findOne(id));
+        return "posts/edit";
     }
 }
