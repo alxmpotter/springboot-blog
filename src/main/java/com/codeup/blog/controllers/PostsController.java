@@ -39,16 +39,21 @@ public class PostsController {
 
 
     @GetMapping("/posts/create")
-    public String createPostForm(Model model){
-        model.addAttribute("post", new Post());
+    public String createPostForm(Model viewModel){
+        viewModel.addAttribute("post", new Post());
         return "posts/create";
     }
 
 
     @PostMapping("/posts/create")
     public String createPost(@ModelAttribute Post post) {
-      postSvc.savePost(post);
+        postSvc.savePost(post);
+        return "redirect:/posts";
+    }
 
-      return "redirect:/posts";
+    @GetMapping("/posts/{id}/edit")
+    public String editPost(@PathVariable int id, Model vModel){
+        vModel.addAttribute("post", postSvc.findOne(id));
+        return "posts/edit";
     }
 }
