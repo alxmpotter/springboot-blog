@@ -3,7 +3,7 @@
 <head th:replace="fragments/header :: main-header('Edit Post')"></head>
 <body>
 <h1>Edit Post</h1>
-<form th:action="${'/posts/' + post.id + 'edit'}" method="post" th:object="${post}">
+<form th:action="${'/posts/' + post.id + '/edit'}" method="post" th:object="${post}">
     Title:
     <input th:field="*{title}"/>
     <br/>

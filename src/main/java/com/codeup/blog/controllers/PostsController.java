@@ -14,14 +14,16 @@ public class PostsController {
     private final PostSvc postSvc;
 
     @Autowired
+    ///constructor injection of repository through the service class
     public PostsController(PostSvc postSvc){
         this.postSvc = postSvc;
+
     }
 
     @GetMapping("/posts")
     public String showAll(Model viewModel){
 
-        List<Post> posts = postSvc.findAll();
+        List<Post> posts = postSvc.showAllPosts();
         viewModel.addAttribute("posts", posts);
 
         return "posts/index";
@@ -31,7 +33,7 @@ public class PostsController {
     @GetMapping("/posts/{id}")
     public String singlePost(@PathVariable int id, Model viewModel){
 
-        Post post = postSvc.findOne(id);
+        Post post = postSvc.findById(id);
         viewModel.addAttribute("post", post);
 
         return "posts/show";
@@ -47,13 +49,28 @@ public class PostsController {
 
     @PostMapping("/posts/create")
     public String createPost(@ModelAttribute Post post) {
-        postSvc.savePost(post);
+        postSvc.savePosts(post);
         return "redirect:/posts";
     }
 
     @GetMapping("/posts/{id}/edit")
-    public String editPost(@PathVariable int id, Model vModel){
-        vModel.addAttribute("post", postSvc.findOne(id));
+    public String showEditForm(@PathVariable int id, Model vModel){
+        vModel.addAttribute("post", postSvc.findById(id));
         return "posts/edit";
     }
+
+    @PostMapping("/posts/{id}/edit")
+    public String updatePost(@PathVariable long id, @ModelAttribute Post post) {
+        post.setId(id);
+        postSvc.savePosts(post);
+        return "redirect:/posts/" + post.getId();
+    }
+
+    @PostMapping("/posts/{id}/delete")
+    public String deletePost(@PathVariable long id) {
+        postSvc.delete(id);
+        return "redirect:/posts/";
+    }
+
+
 }
