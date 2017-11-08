@@ -5,7 +5,11 @@
     <nav th:include="fragments/navbar :: mainNavbar"></nav>
 
     <div th:each="post : ${posts}">
-        <h1 th:text="${post.title}"></h1>
+        <!--title of post is link to single post page that has delete button-->
+        <h2>
+        <a th:href="@{/posts/{id}(id=${post.id})}" th:text="${post.title}">see post</a>
+        </h2>
+        <!--<h1 th:text="${post.title}"></h1>-->
         <p th:text="${post.body}"></p>
     </div>
 

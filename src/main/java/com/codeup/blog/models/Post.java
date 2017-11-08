@@ -1,17 +1,30 @@
 package com.codeup.blog.models;
 
+import com.sun.javafx.beans.IDProperty;
+
+import javax.persistence.*;
+
+@Entity
+@Table(name = "posts")
 public class Post {
+    @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
+
+    @Column(nullable = false, length = 100)
     private String title;
+
+    @Column(columnDefinition = "TEXT", nullable = false)
     private String body;
 
-
+    //use when post is retrieved from database
     public Post(Long id, String title, String body) {
         this.id = id;
         this.title = title;
         this.body = body;
     }
 
+    //use on the create action
     public Post(String title, String body) {
         this.title = title;
         this.body = body;
