@@ -2,6 +2,7 @@ package com.codeup.blog.controllers;
 
 import com.codeup.blog.controllers.services.PostSvc;
 import com.codeup.blog.models.Post;
+import com.codeup.blog.repositories.UsersRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -12,11 +13,13 @@ import java.util.List;
 @Controller
 public class PostsController {
     private final PostSvc postSvc;
+    private final UsersRepository usersDao;
 
     @Autowired
     ///constructor injection of repository through the service class
-    public PostsController(PostSvc postSvc){
+    public PostsController(PostSvc postSvc, UsersRepository usersDao){
         this.postSvc = postSvc;
+        this.usersDao = usersDao;
 
     }
 
