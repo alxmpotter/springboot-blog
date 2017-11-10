@@ -1,6 +1,6 @@
 package com.codeup.blog.models;
 
-import com.sun.javafx.beans.IDProperty;
+
 
 import javax.persistence.*;
 
