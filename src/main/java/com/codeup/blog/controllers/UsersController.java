@@ -5,9 +5,12 @@ import com.codeup.blog.repositories.UsersRepository;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
+import org.springframework.validation.Errors;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PostMapping;
+
+import javax.validation.Valid;
 
 @Controller
 public class UsersController {
@@ -26,11 +29,24 @@ public class UsersController {
             }
 
     @PostMapping("/register")
-    public String registerUser(@ModelAttribute User user) {
-                  String hash = encoder.encode(user.getPassword());
-              user.setPassword(hash);
-              repository.save(user);
+    public String registerUser(@Valid User user, Errors validation, Model model) {
+//        User existingUser = repository.findByUsername(user.getUsername());
+//        User existingEmail = repository.findByEmail(user.getEmail());
+//
+//        if (existingUser == null || existingEmail ==null ) {
+//            return "redirect:/register";
+//        }
 
-        return "redirect:/login";
+        if (validation.hasErrors()) {
+            model.addAttribute("errors", validation);
+            model.addAttribute("user", user);
+            return "users/register";
+        }
+
+        String hash = encoder.encode(user.getPassword());
+        user.setPassword(hash);
+        repository.save(user);
+
+        return "redirect:/posts";
     }
 }

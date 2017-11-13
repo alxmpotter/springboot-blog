@@ -1,5 +1,8 @@
 package com.codeup.blog.models;
 
+import org.hibernate.validator.constraints.Email;
+import org.hibernate.validator.constraints.NotBlank;
+
 import javax.persistence.*;
 import java.util.List;
 
@@ -12,12 +15,16 @@ public class User {
     private Long id;
 
     @Column(nullable = false, unique = true)
+    @NotBlank(message = "must have a username.")
     private String username;
 
     @Column(nullable = false, unique = true)
+    @NotBlank(message = "must have an email.")
     private String email;
 
     @Column(nullable = false)
+    @NotBlank(message = "password cannot be empty.")
+    @Email(message = "must have @ symbol")
     private String password;
 
     @OneToMany(cascade = CascadeType.ALL, mappedBy = "user")
