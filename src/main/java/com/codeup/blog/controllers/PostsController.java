@@ -5,6 +5,7 @@ import com.codeup.blog.models.Post;
 import com.codeup.blog.models.User;
 import com.codeup.blog.repositories.UsersRepository;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.Errors;
@@ -63,8 +64,7 @@ public class PostsController {
             model.addAttribute("post", post);
             return "posts/create";
         }
-
-        User user = usersDao.findOne(2L);
+        User user = (User) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
         post.setUser(user);
         postSvc.savePosts(post);
 

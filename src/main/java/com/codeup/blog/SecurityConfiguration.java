@@ -15,7 +15,7 @@ import org.springframework.security.crypto.password.PasswordEncoder;
 @Configuration
 @EnableWebSecurity
 public class SecurityConfiguration extends WebSecurityConfigurerAdapter {
-
+    @Autowired
     private UserDetailsLoader userDetails;
 
     @Bean
@@ -25,9 +25,7 @@ public class SecurityConfiguration extends WebSecurityConfigurerAdapter {
 
     @Override
     protected void configure(AuthenticationManagerBuilder auth) throws Exception {
-        auth
-                .userDetailsService(userDetails)
-                .passwordEncoder(passwordEncoder());
+        auth.userDetailsService(userDetails).passwordEncoder(passwordEncoder());
     }
 
     @Override
@@ -36,10 +34,10 @@ public class SecurityConfiguration extends WebSecurityConfigurerAdapter {
                 .formLogin()
                 .loginPage("/login")
                 .defaultSuccessUrl("/posts") // user's home page, it can be any URL
-                .permitAll() // Anyone can go to the login page
+                .permitAll()
                 .and()
                 .authorizeRequests()
-                .antMatchers("/", "/logout", "/posts", "/register") // anyone can see the home and logout page
+                .antMatchers("/", "/logout", "/posts", "/register")
                 .permitAll()
                 .and()
                 .logout()
@@ -48,7 +46,7 @@ public class SecurityConfiguration extends WebSecurityConfigurerAdapter {
                 .authorizeRequests()
                 .antMatchers(
                         "/posts/create",
-                        "/posts/{id}/edit"
+                        "/posts/?/edit"
                 ) // only authenticated users can create ads
                 .authenticated()
         ;
