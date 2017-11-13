@@ -20,11 +20,11 @@ public class User {
 
     @Column(nullable = false, unique = true)
     @NotBlank(message = "must have an email.")
+    @Email(message = "must have @ symbol")
     private String email;
 
     @Column(nullable = false)
     @NotBlank(message = "password cannot be empty.")
-    @Email(message = "must have @ symbol")
     private String password;
 
     @OneToMany(cascade = CascadeType.ALL, mappedBy = "user")

@@ -30,12 +30,12 @@ public class UsersController {
 
     @PostMapping("/register")
     public String registerUser(@Valid User user, Errors validation, Model model) {
-//        User existingUser = repository.findByUsername(user.getUsername());
-//        User existingEmail = repository.findByEmail(user.getEmail());
-//
-//        if (existingUser == null || existingEmail ==null ) {
-//            return "redirect:/register";
-//        }
+        User existingUser = repository.findByUsername(user.getUsername());
+        User existingEmail = repository.findByEmail(user.getEmail());
+
+        if (existingUser != null || existingEmail != null ) {
+            return "redirect:/register";
+        }
 
         if (validation.hasErrors()) {
             model.addAttribute("errors", validation);
