@@ -12,8 +12,15 @@
     <!--Created by: <a th:href="@{'mailto:' + ${post.user.email} }"><span th:text="${post.user.username}"></span></a>-->
 
     <form method="post" th:action="${'/posts/' + post.id + '/delete'}" >
-        <input class="btn btn-block btn-danger" type="submit" value="Delete This Post" />
+        <input class="btn btn-block btn-danger" type="submit" value="Delete" />
     </form>
+
+    <div>
+        <a th:href="${'/posts/' + post.id + '/edit'}" class="btn btn-block btn-danger"><button type="button">edit</button></a>
+    </div>
+
+
+
 </div>
 
 </body>
