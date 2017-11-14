@@ -33,8 +33,20 @@ public class UsersController {
         User existingUser = repository.findByUsername(user.getUsername());
         User existingEmail = repository.findByEmail(user.getEmail());
 
-        if (existingUser != null || existingEmail != null ) {
-            return "redirect:/register";
+        if (existingUser != null) {
+            validation.rejectValue(
+                    "username",
+                    "user.username",
+                    "User name already taken"
+            );
+        }
+
+        if (existingEmail != null ) {
+            validation.rejectValue(
+                    "email",
+                    "user.email",
+                    "email already in use"
+            );
         }
 
         if (validation.hasErrors()) {
