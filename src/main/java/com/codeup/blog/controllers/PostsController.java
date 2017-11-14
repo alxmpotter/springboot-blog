@@ -27,7 +27,7 @@ public class PostsController {
 
     }
 
-    @GetMapping("/posts")
+    @GetMapping({"/posts", "/"})
     public String showAll(Model viewModel){
 
         List<Post> posts = postSvc.showAllPosts();
